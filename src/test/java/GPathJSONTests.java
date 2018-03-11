@@ -30,4 +30,15 @@ public class GPathJSONTests extends TestConfig {
         List<String> allPlayers = response.path("players.findAll { it.jerseyNumber > 10 }.name");
         System.out.println(allPlayers);
     }
+
+    @Test
+    public void extractMultiplePlayers() {
+        String position = "Centre-Back";
+        String nationality = "England";
+
+        Response response = get("teams/66/players");
+        List<Map<String, ?>> allPlayersCertainNation = response.path("players.findAll {it.position == '%s'}.findAll {it.nationality == '%s'}", position, nationality);
+
+        System.out.println(allPlayersCertainNation);
+    }
 }
